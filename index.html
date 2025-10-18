@@ -490,31 +490,6 @@
         .recent-item:hover {
             background: var(--bg-lighter);
         }
-
-        /* Stats */
-        .stats-container {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin: 40px 0;
-            flex-wrap: wrap;
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 32px;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 5px;
-        }
-
-        .stat-label {
-            color: var(--text-dim);
-            font-size: 14px;
-        }
         
         .footer {
             margin-top: auto;
@@ -626,22 +601,6 @@
         </header>
         
         <main class="main-content">
-            <!-- Stats -->
-            <div class="stats-container">
-                <div class="stat-item">
-                    <div class="stat-number" id="searchesCount">1.2M+</div>
-                    <div class="stat-label">Searches Today</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number" id="filesIndexed">850M+</div>
-                    <div class="stat-label">Files Indexed</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number" id="activeUsers">50K+</div>
-                    <div class="stat-label">Active Users</div>
-                </div>
-            </div>
-
             <div class="search-interface">
                 <!-- Quick Filters Sidebar -->
                 <div class="quick-filters">
@@ -822,7 +781,6 @@
             setEngine('google');
             createSnowflakes();
             loadRecentSearches();
-            updateStats();
         });
 
         // Snow Falling Effect
@@ -992,29 +950,6 @@
                 item.onclick = () => quickSearch(query);
                 container.appendChild(item);
             });
-        }
-
-        // Stats Animation
-        function updateStats() {
-            // Animate numbers
-            animateValue('searchesCount', 0, 1200000, 2000);
-            animateValue('filesIndexed', 0, 850000000, 2500);
-            animateValue('activeUsers', 0, 50000, 1500);
-        }
-
-        function animateValue(id, start, end, duration) {
-            const obj = document.getElementById(id);
-            let startTimestamp = null;
-            const step = (timestamp) => {
-                if (!startTimestamp) startTimestamp = timestamp;
-                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                const value = Math.floor(progress * (end - start) + start);
-                obj.innerHTML = value.toLocaleString() + '+';
-                if (progress < 1) {
-                    window.requestAnimationFrame(step);
-                }
-            };
-            window.requestAnimationFrame(step);
         }
 
         // Footer Links

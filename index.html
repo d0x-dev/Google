@@ -15,12 +15,12 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Roboto', Arial, sans-serif;
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         }
         
         body {
-            background: linear-gradient(135deg, #1a2a4a 0%, #0d1b2a 100%);
-            color: #e0e0e0;
+            background: #000000;
+            color: #ffffff;
             font-size: 14px;
             line-height: 1.4286;
             min-height: 100vh;
@@ -30,18 +30,32 @@
             overflow-x: hidden;
         }
         
-        /* Mica Effect Background */
-        body::before {
-            content: '';
+        /* ================= VARIABLES ================= */
+        :root {
+            --primary: #00d4ff;
+            --primary-dark: #00a8cc;
+            --accent: #ff0080;
+            --bg-dark: #0a0a0a;
+            --bg-darker: #050505;
+            --bg-light: rgba(255,255,255,0.05);
+            --bg-lighter: rgba(255,255,255,0.08);
+            --text-light: #ffffff;
+            --text-dim: #aaaaaa;
+            --shadow: 0 8px 32px rgba(0,0,0,0.4);
+            --radius: 16px;
+            --blur: blur(20px);
+        }
+        
+        /* ================= APP CONTAINER ================= */
+        .app-container {
+            width: 100%;
+            height: 100vh;
+            height: 100dvh;
+            background: linear-gradient(135deg, var(--bg-darker), var(--bg-dark));
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSgzMCkiPjxyZWN0IHdpZHRoPSIyIiBoZWlnaHQ9IjIiIGZpbGw9IiMwMDMzNjYiIG9wYWNpdHk9IjAuMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIvPjwvc3ZnPg==');
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            z-index: -1;
+            overflow: hidden;
         }
         
         header {
@@ -64,14 +78,15 @@
         .logo-icon {
             width: 60px;
             height: 60px;
-            background: linear-gradient(135deg, #4a9eff 0%, #0066cc 100%);
+            background: var(--primary);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.4);
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4);
             position: relative;
             overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
         }
         
         .logo-icon::before {
@@ -100,16 +115,13 @@
             font-family: 'Montserrat', sans-serif;
             font-size: 48px;
             font-weight: 700;
-            background: linear-gradient(135deg, #4a9eff 0%, #a2d2ff 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0 2px 10px rgba(74, 158, 255, 0.3);
+            color: var(--primary);
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
         }
         
         .tagline {
             font-size: 18px;
-            color: #b0c4de;
+            color: var(--text-dim);
             margin-bottom: 30px;
             font-weight: 300;
         }
@@ -118,6 +130,7 @@
             max-width: 650px;
             margin: 0 auto;
             padding: 0 20px;
+            position: relative;
         }
         
         .search-form {
@@ -128,27 +141,26 @@
         .search-box {
             width: 100%;
             height: 50px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 25px;
+            background: var(--bg-light);
+            backdrop-filter: var(--blur);
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 50px;
             padding: 0 25px;
             font-size: 16px;
             outline: none;
-            color: #ffffff;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            color: var(--text-light);
+            box-shadow: var(--shadow);
+            font-family: inherit;
             transition: all 0.3s ease;
         }
         
         .search-box::placeholder {
-            color: rgba(255, 255, 255, 0.6);
+            color: var(--text-dim);
         }
         
-        .search-box:hover, .search-box:focus {
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3);
-            border-color: rgba(255, 255, 255, 0.3);
+        .search-box:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
         }
         
         .search-buttons {
@@ -159,23 +171,23 @@
         }
         
         .search-btn {
-            background: linear-gradient(135deg, #4a9eff 0%, #0066cc 100%);
+            background: var(--primary);
+            color: #000;
             border: none;
-            border-radius: 25px;
-            color: white;
-            font-size: 15px;
-            font-weight: 500;
             padding: 0 24px;
             height: 42px;
+            border-radius: 50px;
+            font-size: 15px;
+            font-weight: 600;
             cursor: pointer;
-            outline: none;
-            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.3);
             transition: all 0.3s ease;
+            transform: scale(1);
+            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.3);
         }
         
-        .search-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 102, 204, 0.4);
+        .search-btn:active {
+            background: var(--primary-dark);
+            transform: scale(0.98);
         }
         
         .dropdown-container {
@@ -192,53 +204,60 @@
         }
         
         .dropdown-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: var(--bg-light);
+            backdrop-filter: var(--blur);
+            border: 1px solid rgba(255,255,255,0.1);
             border-radius: 20px;
-            color: #e0e0e0;
+            color: var(--text-light);
             padding: 10px 20px;
             font-size: 14px;
             cursor: pointer;
             display: flex;
             align-items: center;
             gap: 8px;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
             transition: all 0.3s ease;
+            box-shadow: var(--shadow);
         }
         
-        .dropdown-btn:hover {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: rgba(255, 255, 255, 0.3);
+        .dropdown-btn:active {
+            background: var(--bg-lighter);
+            transform: scale(0.95);
         }
         
         .dropdown-content {
             display: none;
             position: absolute;
-            background: rgba(30, 40, 60, 0.9);
+            background: var(--bg-light);
+            backdrop-filter: var(--blur);
             min-width: 180px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-            border-radius: 12px;
+            box-shadow: var(--shadow);
+            border-radius: var(--radius);
             z-index: 1;
             margin-top: 8px;
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255,255,255,0.05);
             overflow: hidden;
         }
         
         .dropdown-content a {
-            color: #e0e0e0;
+            color: var(--text-light);
             padding: 12px 20px;
             text-decoration: none;
             display: block;
             font-size: 14px;
             transition: all 0.2s ease;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+        
+        .dropdown-content a:active {
+            background: var(--bg-lighter);
         }
         
         .dropdown-content a:hover {
-            background: rgba(74, 158, 255, 0.2);
-            color: #ffffff;
+            background: rgba(0, 212, 255, 0.1);
         }
         
         .dropdown:hover .dropdown-content {
@@ -249,7 +268,7 @@
             margin-top: auto;
             padding: 30px 20px;
             text-align: center;
-            color: #8fa3c2;
+            color: var(--text-dim);
             font-size: 13px;
         }
         
@@ -258,15 +277,42 @@
         }
         
         .footer-links a {
-            color: #a2d2ff;
+            color: var(--primary);
             text-decoration: none;
             margin: 0 12px;
             transition: color 0.2s ease;
         }
         
         .footer-links a:hover {
-            color: #ffffff;
-            text-decoration: underline;
+            color: var(--text-light);
+        }
+        
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: var(--bg-light);
+            backdrop-filter: var(--blur);
+            color: var(--text-light);
+            padding: 15px 25px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .notification.show {
+            transform: translateX(-50%) translateY(0);
+        }
+        
+        .notification i {
+            color: var(--primary);
         }
         
         @media (max-width: 768px) {
@@ -292,76 +338,97 @@
                 width: 50px;
                 height: 50px;
             }
+            
+            .search-btn {
+                padding: 0 20px;
+                font-size: 14px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .app-container {
+                max-width: 414px;
+                max-height: 896px;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                border-radius: 20px;
+                overflow: hidden;
+                box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+                border: 1px solid rgba(255,255,255,0.1);
+            }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="logo-container">
-            <div class="logo">
-                <div class="logo-icon"></div>
-                <div class="logo-text">Storm X</div>
-            </div>
-        </div>
-        <div class="tagline">Find direct download links for almost anything</div>
-    </header>
-    
-    <main>
-        <div class="search-container">
-            <form class="search-form" id="searchForm" onsubmit="event.preventDefault(); startSearch();">
-                <input type="hidden" name="fileType" value="" id="fileType">
-                <input type="hidden" name="resType" value="" id="resType">
-                <input type="hidden" name="engine" value="google" id="engine">
-                
-                <input type="text" name="query" value="" id="query" class="search-box" placeholder="Search for TV shows, movies, books, music, software...">
-                
-                <div class="search-buttons">
-                    <button type="button" class="search-btn" onclick="startSearch()">Storm Search</button>
+    <div class="app-container">
+        <header>
+            <div class="logo-container">
+                <div class="logo">
+                    <div class="logo-icon"></div>
+                    <div class="logo-text">Storm X</div>
                 </div>
-                
-                <div class="dropdown-container">
-                    <div class="dropdown">
-                        <button type="button" class="dropdown-btn" id="fileTypeBtn">
-                            <span>All file types</span>
-                            <span>▼</span>
-                        </button>
-                        <div class="dropdown-content" id="fileTypeDropdown">
-                            <a href="#" onclick="setFiletype('mkv|mp4|avi|mov|mpg|wmv|divx|mpeg', 'TV/Movies', 'video', 'film')">TV/Movies/Video</a>
-                            <a href="#" onclick="setFiletype('MOBI|CBZ|CBR|CBC|CHM|EPUB|FB2|LIT|LRF|ODT|PDF|PRC|PDB|PML|RB|RTF|TCR|DOC|DOCX', 'Books', 'ebook', 'book')">Books</a>
-                            <a href="#" onclick="setFiletype('mp3|wav|ac3|ogg|flac|wma|m4a|aac|mod', 'Music', 'audio', 'music')">Music</a>
-                            <a href="#" onclick="setFiletype('exe|iso|dmg|tar|7z|bz2|gz|rar|zip|apk', 'Software/ISO/DMG/Games', 'archive', 'cd')">Software/ISO/DMG/Games</a>
-                            <a href="#" onclick="setFiletype('jpg|png|bmp|gif|tif|tiff|psd', 'Images', 'picture', 'picture')">Images</a>
-                            <a href="#" onclick="setFiletype('-1', 'Other', 'all', 'asterisk')">Other</a>
-                        </div>
+            </div>
+            <div class="tagline">Find direct download links for almost anything</div>
+        </header>
+        
+        <main>
+            <div class="search-container">
+                <form class="search-form" id="searchForm" onsubmit="event.preventDefault(); startSearch();">
+                    <input type="hidden" name="fileType" value="" id="fileType">
+                    <input type="hidden" name="resType" value="" id="resType">
+                    <input type="hidden" name="engine" value="google" id="engine">
+                    
+                    <input type="text" name="query" value="" id="query" class="search-box" placeholder="Search for TV shows, movies, books, music, software...">
+                    
+                    <div class="search-buttons">
+                        <button type="button" class="search-btn" onclick="startSearch()">Storm Search</button>
                     </div>
                     
-                    <div class="dropdown">
-                        <button type="button" class="dropdown-btn" id="engineBtn">
-                            <span>Google</span>
-                            <span>▼</span>
-                        </button>
-                        <div class="dropdown-content" id="engineDropdown">
-                            <a href="#" onclick="setEngine('google')">Google</a>
-                            <a href="#" onclick="setEngine('googol')">Googol</a>
-                            <a href="#" onclick="setEngine('startpage')">Startpage</a>
-                            <a href="#" onclick="setEngine('searx')">Searx</a>
-                            <a href="#" onclick="setEngine('filepursuit')">FilePursuit</a>
+                    <div class="dropdown-container">
+                        <div class="dropdown">
+                            <button type="button" class="dropdown-btn" id="fileTypeBtn">
+                                <span>All file types</span>
+                                <span>▼</span>
+                            </button>
+                            <div class="dropdown-content" id="fileTypeDropdown">
+                                <a href="#" onclick="setFiletype('mkv|mp4|avi|mov|mpg|wmv|divx|mpeg', 'TV/Movies', 'video', 'film')">TV/Movies/Video</a>
+                                <a href="#" onclick="setFiletype('MOBI|CBZ|CBR|CBC|CHM|EPUB|FB2|LIT|LRF|ODT|PDF|PRC|PDB|PML|RB|RTF|TCR|DOC|DOCX', 'Books', 'ebook', 'book')">Books</a>
+                                <a href="#" onclick="setFiletype('mp3|wav|ac3|ogg|flac|wma|m4a|aac|mod', 'Music', 'audio', 'music')">Music</a>
+                                <a href="#" onclick="setFiletype('exe|iso|dmg|tar|7z|bz2|gz|rar|zip|apk', 'Software/ISO/DMG/Games', 'archive', 'cd')">Software/ISO/DMG/Games</a>
+                                <a href="#" onclick="setFiletype('jpg|png|bmp|gif|tif|tiff|psd', 'Images', 'picture', 'picture')">Images</a>
+                                <a href="#" onclick="setFiletype('-1', 'Other', 'all', 'asterisk')">Other</a>
+                            </div>
+                        </div>
+                        
+                        <div class="dropdown">
+                            <button type="button" class="dropdown-btn" id="engineBtn">
+                                <span>Google</span>
+                                <span>▼</span>
+                            </button>
+                            <div class="dropdown-content" id="engineDropdown">
+                                <a href="#" onclick="setEngine('google')">Google</a>
+                                <a href="#" onclick="setEngine('googol')">Googol</a>
+                                <a href="#" onclick="setEngine('startpage')">Startpage</a>
+                                <a href="#" onclick="setEngine('searx')">Searx</a>
+                                <a href="#" onclick="setEngine('filepursuit')">FilePursuit</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </form>
-        </div>
-    </main>
-    
-    <footer class="footer">
-        <div>Storm X - Find direct download links</div>
-        <div class="footer-links">
-            <a href="#">About</a>
-            <a href="#">Privacy</a>
-            <a href="#">Terms</a>
-            <a href="#">Help</a>
-        </div>
-    </footer>
+                </form>
+            </div>
+        </main>
+        
+        <footer class="footer">
+            <div>Storm X - Find direct download links</div>
+            <div class="footer-links">
+                <a href="#">About</a>
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+                <a href="#">Help</a>
+            </div>
+        </footer>
+    </div>
 
     <script>
         // Initialize default values
@@ -420,7 +487,7 @@
             var engine = document.getElementById('engine').value;
             
             if (!query.trim()) {
-                alert('Please enter a search query');
+                showNotification('Please enter a search query');
                 return;
             }
             
@@ -455,6 +522,29 @@
             window.open(url, '_blank');
         }
         
+        // Show notification
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.innerHTML = `
+                <i class="fas fa-info-circle"></i>
+                <span>${message}</span>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 10);
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 400);
+            }, 3000);
+        }
+        
         // Close dropdowns when clicking outside
         document.addEventListener('click', function(event) {
             if (!event.target.matches('.dropdown-btn')) {
@@ -468,5 +558,8 @@
             }
         });
     </script>
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </body>
 </html>

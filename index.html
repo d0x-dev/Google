@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Open Directory Search</title>
+    <meta name="description" content="Find direct download links for TV Series, Movies, Books, music, software, games and more.">
+    <meta name="keywords" content="download, movies, games, music, software, epub, ebooks, pdf, mp3, songs, direct download">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #fff;
+            color: #202124;
+            font-size: 14px;
+            line-height: 1.4286;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        header {
+            padding: 20px 0;
+            text-align: center;
+        }
+        
+        .logo-container {
+            margin-bottom: 20px;
+        }
+        
+        .logo {
+            font-size: 80px;
+            font-weight: 400;
+            color: #4285f4;
+            margin-bottom: 10px;
+        }
+        
+        .logo span:nth-child(1) { color: #4285f4; }
+        .logo span:nth-child(2) { color: #ea4335; }
+        .logo span:nth-child(3) { color: #fbbc05; }
+        .logo span:nth-child(4) { color: #4285f4; }
+        .logo span:nth-child(5) { color: #34a853; }
+        .logo span:nth-child(6) { color: #ea4335; }
+        
+        .tagline {
+            font-size: 18px;
+            color: #5f6368;
+            margin-bottom: 30px;
+        }
+        
+        .search-container {
+            max-width: 584px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .search-form {
+            position: relative;
+            margin-bottom: 30px;
+        }
+        
+        .search-box {
+            width: 100%;
+            height: 44px;
+            border: 1px solid #dfe1e5;
+            border-radius: 24px;
+            padding: 0 20px;
+            font-size: 16px;
+            outline: none;
+            box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
+        }
+        
+        .search-box:hover, .search-box:focus {
+            box-shadow: 0 1px 8px rgba(32, 33, 36, 0.3);
+        }
+        
+        .search-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 18px;
+        }
+        
+        .search-btn {
+            background-color: #f8f9fa;
+            border: 1px solid #f8f9fa;
+            border-radius: 4px;
+            color: #3c4043;
+            font-size: 14px;
+            padding: 0 16px;
+            height: 36px;
+            cursor: pointer;
+            outline: none;
+        }
+        
+        .search-btn:hover {
+            box-shadow: 0 1px 1px rgba(0,0,0,.1);
+            background-color: #f8f9fa;
+            border: 1px solid #dadce0;
+            color: #202124;
+        }
+        
+        .dropdown-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .dropdown-btn {
+            background-color: #f8f9fa;
+            border: 1px solid #dadce0;
+            border-radius: 4px;
+            color: #3c4043;
+            padding: 8px 16px;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .dropdown-btn:hover {
+            background-color: #f1f3f4;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            border-radius: 4px;
+            z-index: 1;
+            margin-top: 5px;
+        }
+        
+        .dropdown-content a {
+            color: #3c4043;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: 14px;
+        }
+        
+        .dropdown-content a:hover {
+            background-color: #f1f3f4;
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        
+        .footer {
+            margin-top: auto;
+            padding: 20px;
+            text-align: center;
+            color: #5f6368;
+            font-size: 13px;
+        }
+        
+        .footer-links {
+            margin-top: 10px;
+        }
+        
+        .footer-links a {
+            color: #1a0dab;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 50px;
+            }
+            
+            .tagline {
+                font-size: 16px;
+            }
+            
+            .dropdown-container {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <div class="logo">
+                <span>O</span><span>p</span><span>e</span><span>n</span><span>D</span><span>L</span>
+            </div>
+        </div>
+        <div class="tagline">Find direct download links for almost anything</div>
+    </header>
+    
+    <main>
+        <div class="search-container">
+            <form class="search-form" id="searchForm" onsubmit="event.preventDefault(); startSearch();">
+                <input type="hidden" name="fileType" value="" id="fileType">
+                <input type="hidden" name="resType" value="" id="resType">
+                <input type="hidden" name="engine" value="google" id="engine">
+                
+                <input type="text" name="query" value="" id="query" class="search-box" placeholder="Search for TV shows, movies, books, music, software...">
+                
+                <div class="search-buttons">
+                    <button type="button" class="search-btn" onclick="startSearch()">Open Directory Search</button>
+                </div>
+                
+                <div class="dropdown-container">
+                    <div class="dropdown">
+                        <button type="button" class="dropdown-btn" id="fileTypeBtn">
+                            <span>All file types</span>
+                            <span>▼</span>
+                        </button>
+                        <div class="dropdown-content" id="fileTypeDropdown">
+                            <a href="#" onclick="setFiletype('mkv|mp4|avi|mov|mpg|wmv|divx|mpeg', 'TV/Movies', 'video', 'film')">TV/Movies/Video</a>
+                            <a href="#" onclick="setFiletype('MOBI|CBZ|CBR|CBC|CHM|EPUB|FB2|LIT|LRF|ODT|PDF|PRC|PDB|PML|RB|RTF|TCR|DOC|DOCX', 'Books', 'ebook', 'book')">Books</a>
+                            <a href="#" onclick="setFiletype('mp3|wav|ac3|ogg|flac|wma|m4a|aac|mod', 'Music', 'audio', 'music')">Music</a>
+                            <a href="#" onclick="setFiletype('exe|iso|dmg|tar|7z|bz2|gz|rar|zip|apk', 'Software/ISO/DMG/Games', 'archive', 'cd')">Software/ISO/DMG/Games</a>
+                            <a href="#" onclick="setFiletype('jpg|png|bmp|gif|tif|tiff|psd', 'Images', 'picture', 'picture')">Images</a>
+                            <a href="#" onclick="setFiletype('-1', 'Other', 'all', 'asterisk')">Other</a>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdown">
+                        <button type="button" class="dropdown-btn" id="engineBtn">
+                            <span>Google</span>
+                            <span>▼</span>
+                        </button>
+                        <div class="dropdown-content" id="engineDropdown">
+                            <a href="#" onclick="setEngine('google')">Google</a>
+                            <a href="#" onclick="setEngine('googol')">Googol</a>
+                            <a href="#" onclick="setEngine('startpage')">Startpage</a>
+                            <a href="#" onclick="setEngine('searx')">Searx</a>
+                            <a href="#" onclick="setEngine('filepursuit')">FilePursuit</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div>Open Directory Search - Find direct download links</div>
+        <div class="footer-links">
+            <a href="#">About</a>
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+            <a href="#">Help</a>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize default values
+        document.addEventListener('DOMContentLoaded', function() {
+            setFiletype('-1', 'Other', 'all', 'asterisk');
+            setEngine('google');
+        });
+        
+        // File type dropdown functionality
+        function setFiletype(fileType, buttonData, resType, glyph) {
+            var defaultString = 'Search anything';
+            if (fileType==-1) {
+                fileType="";
+            }
+            
+            // Update placeholder based on file type
+            switch(glyph) {
+                case 'film':
+                    document.getElementById('query').placeholder = defaultString+' eg. The.Blacklist.S01';
+                    break;
+                case 'music':
+                    document.getElementById('query').placeholder = defaultString+' eg. K.Flay discography';
+                    break;
+                case 'book':
+                    document.getElementById('query').placeholder = defaultString+' eg. 1985';
+                    break;
+                case 'cd':
+                    document.getElementById('query').placeholder = defaultString+' eg. GTA V';
+                    break;
+                case 'picture':
+                    document.getElementById('query').placeholder = defaultString+' eg. Donald Trump';
+                    break;
+                case 'asterisk':
+                    document.getElementById('query').placeholder = defaultString;
+                    break;
+            }
+            
+            document.getElementById('fileType').value = fileType;
+            document.getElementById('resType').value = resType;
+            document.getElementById('fileTypeBtn').innerHTML = '<span>' + buttonData + '</span><span>▼</span>';
+            document.getElementById('query').focus();
+        }
+        
+        // Search engine dropdown functionality
+        function setEngine(engine) {
+            document.getElementById('engine').value = engine;
+            document.getElementById('engineBtn').innerHTML = '<span>' + engine.charAt(0).toUpperCase() + engine.slice(1) + '</span><span>▼</span>';
+            document.getElementById('query').focus();
+        }
+        
+        // Search function
+        function startSearch() {
+            var query = document.getElementById('query').value;
+            var fileType = document.getElementById('fileType').value;
+            var resType = document.getElementById('resType').value;
+            var engine = document.getElementById('engine').value;
+            
+            if (!query.trim()) {
+                alert('Please enter a search query');
+                return;
+            }
+            
+            if (fileType=="") {
+                if(engine=="filepursuit") {
+                    fileType = "all";
+                }
+                var finalQuery = query+" -inurl:(jsp|pl|php|html|aspx|htm|cf|shtml) intitle:index.of -inurl:(listen77|mp3raid|mp3toss|mp3drug|index_of|index-of|wallywashis|downloadmana)";
+            } else {
+                var finalQuery = query+" +("+fileType+") -inurl:(jsp|pl|php|html|aspx|htm|cf|shtml) intitle:index.of -inurl:(listen77|mp3raid|mp3toss|mp3drug|index_of|index-of|wallywashis|downloadmana)";
+            }
+            
+            var url;
+            switch(engine) {
+                case 'google':
+                    url = "https://www.google.com/search?q="+encodeURIComponent(finalQuery);
+                    break;
+                case 'googol':
+                    url = "https://googol.warriordudimanche.net/?q="+encodeURIComponent(finalQuery);
+                    break;
+                case 'startpage':
+                    url = "https://www.startpage.com/do/dsearch?query="+encodeURIComponent(finalQuery);
+                    break;
+                case 'searx':
+                    url = "https://searx.me/?q="+encodeURIComponent(finalQuery);
+                    break;
+                case 'filepursuit':
+                    url = "https://filepursuit.com/search/"+query.replace(/ /g,"+")+"/type/"+resType;
+                    break;
+            }
+            
+            window.open(url, '_blank');
+        }
+        
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.matches('.dropdown-btn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.style.display === 'block') {
+                        openDropdown.style.display = 'none';
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
